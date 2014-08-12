@@ -5,6 +5,7 @@ from vk_oauth import VK
 import requests
 import json
 from urllib import urlencode
+import webbrowser
 import os
 import sys
 import re
@@ -65,7 +66,7 @@ def download_audio(query, extra_params=None):
 
 	params = {"access_token": VK_ACCESS_TOKEN, "q":query, "count":1, "sort":2}
 	if extra_params:
-		params.extend(extra_params)
+		params.update(extra_params)
 
 	r = requests.get("https://api.vk.com/method/audio.search", params=params)
 	response = r.json()
@@ -84,7 +85,7 @@ def download_audio(query, extra_params=None):
 			c_key = raw_input("captcha: ")
 
 			print "retrying... %s" % (query)
-			download_audio(query, params={"captcha_sid":c_sid, "captcha_key":c_key})
+			download_audio(query, extra_params={"captcha_sid":c_sid, "captcha_key":c_key})
 			
 	else:
 		items = response["response"][1:]
