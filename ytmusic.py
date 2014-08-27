@@ -10,6 +10,11 @@ import os
 import sys
 import re
 from transliterate import translit
+import argparse
+
+parser = argparse.ArgumentParser(description='Get track list from YouTube and search VK for mp3.')
+parser.add_argument('playlist_ids', metavar='playlist_ids', nargs='+', help='YouTube playlists ids')
+args = parser.parse_args()
 
 SUCCEEDED = []
 FAILED = []
@@ -23,6 +28,10 @@ def get_songs(playlist_id, songs=None, start_index=1):
 	params = {"start-index": start_index, "max-results": MAX_RESULTS, "v":2, "alt":"json"}
 
 	r = requests.get(url, params=params)
+	if r.status_code != requests.codes.ok:
+		print "request not valid: %s" % r.url
+		return []
+	
 	response = r.json()
 
 	total_items_count = response["feed"]["openSearch$totalResults"]["$t"]
@@ -120,10 +129,7 @@ def main():
 	print "script started..."
 
 	all_songs = []
-	playlist_ids = ["PLsLh1_TkoVPjDo8oollQLV3HvpzEW99sz", "PLkdRFcfZIhm8AQ2TjmmfS6NLUoMBxWch6"]
-	# playlist_ids = ["PLF4AB437801A6E842"]
-
-	for playlist_id in playlist_ids:
+	for playlist_id in args.playlist_ids:
 		songs = get_songs(playlist_id)
 		print "number of songs in playlist %s: %s" % (playlist_id, len(songs))
 		all_songs.extend(songs)
