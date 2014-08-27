@@ -109,7 +109,8 @@ def download_audio(query, extra_params=None):
 								"original_query":original_query.encode("utf-8")})
 			
 			print "succeded: %s" % (query)
-			os.system("curl -o %s %s" % (filepath, item["url"]))
+			# os.system("curl -o %s %s" % (filepath, item["url"]))
+			os.system("wget -c %s -O %s" % (item["url"], filepath))
 		else:
 			FAILED.append({"query":query.encode("utf-8"), 
 							"original_query":original_query.encode("utf-8")})
