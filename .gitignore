@@ -94,5 +94,6 @@ target/
 # Project related
 .vk_access_token
 files/
+venv/
 report.json
 

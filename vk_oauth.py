@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 # http://blog.carduner.net/2010/05/26/authenticating-with-facebook-on-the-command-line-using-python/
 
