@@ -1,13 +1,13 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import argparse
 import os, sys
 from vk_downloader import download_audio
+import json
 import pdb
 
 parser = argparse.ArgumentParser(description='')
-parser.add_argument('file_name', metavar='file_name', help='YouTube playlists ids')
+parser.add_argument('file_name', metavar='file_name', help='')
 args = parser.parse_args()
 
 SUCCEEDED = []
